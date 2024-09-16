@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "259744384105",
+    "project_id": "patatudo-8c355",
+    "storage_bucket": "patatudo-8c355.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259744384105:android:15597b9395c4c0543c8ef8",
+        "android_client_info": {
+          "package_name": "com.example.patatudo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCowLHoVBiyTi_4Bh5cx_iBcYhG-TqFvk0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

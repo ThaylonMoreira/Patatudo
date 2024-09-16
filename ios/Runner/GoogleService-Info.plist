@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCipqDq6F48MB0tDjBjYWPD_GJe2cTg0Ks</string>
+	<key>GCM_SENDER_ID</key>
+	<string>259744384105</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.patatudo</string>
+	<key>PROJECT_ID</key>
+	<string>patatudo-8c355</string>
+	<key>STORAGE_BUCKET</key>
+	<string>patatudo-8c355.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:259744384105:ios:e22ee98f2b80a37e3c8ef8</string>
+</dict>
+</plist>
