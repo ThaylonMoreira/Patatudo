@@ -1,91 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gap/gap.dart';
 import 'package:patatudo/src/shared/extensions/extensions.dart';
 
+import '../../domain/bloc/pet_list_bloc.dart';
 import '../../domain/entities/pet.dart';
+import '../../domain/states/pet_list_state.dart';
 
 class HomeWidget extends StatelessWidget {
-  const HomeWidget({super.key, required this.pets});
-
-  final List<Pet> pets;
+  const HomeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Gap(context.largeGap + 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Pets',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                if (pets.length > 1)
-                  TextButton(
-                    onPressed: () => Modular.to.pushNamed(
-                      './pet-list',
-                      arguments: pets,
+    return BlocBuilder<PetListBloc, PetListState>(
+      builder: (context, state) {
+        return switch (state) {
+          PetListInitial() ||
+          PetListLoading() =>
+            const CircularProgressIndicator.adaptive(),
+          PetListLoadEmpty() => const Text('Nenhum pet encontrado.'),
+          PetListLoadFailure(:final message) => Text(message),
+          PetListLoadSuccess(:final pets) => SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Gap(context.largeGap + 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Pets',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
                     ),
-                    child: const Text('Ver todos >'),
-                  ),
-              ],
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 2,
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                    Gap(context.mediumGap),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      height: 150,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(20),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: pets.length,
+                        itemBuilder: (context, index) {
+                          final pet = pets[index];
+                          return _buildPetCard(pet, context);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 24.0),
+                    _buildSection(
+                      context,
+                      title: 'Saúde',
+                      content: const Center(child: Text('Saúde Section')),
+                    ),
+                    _buildSection(
+                      context,
+                      title: 'Alimentação',
+                      content: const Center(child: Text('Alimentação Section')),
+                    ),
+                    _buildSection(
+                      context,
+                      title: 'Compromissos',
+                      content:
+                          const Center(child: Text('Compromissos Section')),
+                    ),
+                    _buildSection(
+                      context,
+                      title: 'Passeios',
+                      content: const Center(child: Text('Passeios Section')),
+                    ),
+                    const SizedBox(height: 24.0),
+                  ],
+                ),
               ),
-              height: 150,
-              child: ListView.builder(
-                padding: const EdgeInsets.all(20),
-                scrollDirection: Axis.horizontal,
-                itemCount: pets.length,
-                itemBuilder: (context, index) {
-                  final pet = pets[index];
-                  return _buildPetCard(pet, context);
-                },
-              ),
             ),
-            const SizedBox(height: 24.0),
-            _buildSection(
-              context,
-              title: 'Saúde',
-              content: const Center(child: Text('Saúde Section')),
-            ),
-            _buildSection(
-              context,
-              title: 'Alimentação',
-              content: const Center(child: Text('Alimentação Section')),
-            ),
-            _buildSection(
-              context,
-              title: 'Compromissos',
-              content: const Center(child: Text('Compromissos Section')),
-            ),
-            _buildSection(
-              context,
-              title: 'Passeios',
-              content: const Center(child: Text('Passeios Section')),
-            ),
-            const SizedBox(height: 24.0),
-          ],
-        ),
-      ),
+        };
+      },
     );
   }
 

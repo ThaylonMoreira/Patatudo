@@ -83,7 +83,7 @@ class FirestoreAdapter {
       'id': pet.id,
       'name': pet.name,
       'photo': pet.photo,
-      'type': pet.type,
+      'type': pet.type.name,
       'breed': pet.breed,
       'age': pet.age,
       'weight': pet.weight,
@@ -97,7 +97,7 @@ class FirestoreAdapter {
     return Pet(
       id: doc['id'],
       name: doc['name'],
-      photo: doc['photo'],
+      photo: doc['photo'] ?? '',
       type: PetType.values.byName(doc['type']),
       breed: doc['breed'],
       age: doc['age'],

@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Olá mundo!!',
+              'Patatudo!',
               style: Theme.of(context)
                   .textTheme
                   .displayLarge!
