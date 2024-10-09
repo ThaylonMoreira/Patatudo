@@ -1,4 +1,6 @@
 import 'package:patatudo/src/modules/home/data/adapters/firestore_adapter.dart';
+import 'package:patatudo/src/modules/home/domain/entities/pet.dart';
+import 'package:patatudo/src/modules/home/domain/states/pet_edit_state.dart';
 
 import '../../../../core/services/firestore_service.dart';
 import '../../domain/repositories/pet_repository.dart';
@@ -21,6 +23,39 @@ class FirestorePetRepository implements PetRepository {
         throw const PetListLoadFailure(
             message: 'Erro ao obter os dados dos pets cadastrados.');
       },
+    );
+  }
+
+  @override
+  Future<PetEditState> create(Pet pet) async {
+    return firestoreService.post<PetEditState>(
+      collection: 'pets',
+      document: FirestoreAdapter.petToDocument(pet),
+      onSuccess: (document) => PetEditState(
+        pet: FirestoreAdapter.petFromMap(document),
+        status: PetEditStatus.success,
+      ),
+      onFailure: (failure) => PetEditState(
+        pet: pet,
+        status: PetEditStatus.failure,
+      ),
+    );
+  }
+
+  @override
+  Future<PetEditState> update(Pet pet, Pet oldPet) async {
+    return firestoreService.put(
+      collection: 'pets',
+      id: pet.id,
+      document: FirestoreAdapter.petToDocument(pet),
+      onSuccess: (document) => PetEditState(
+        pet: FirestoreAdapter.petFromMap(document),
+        status: PetEditStatus.success,
+      ),
+      onFailure: (failure) => PetEditState(
+        pet: pet,
+        status: PetEditStatus.failure,
+      ),
     );
   }
 }

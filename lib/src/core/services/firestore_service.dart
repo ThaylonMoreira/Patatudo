@@ -124,7 +124,7 @@ class FirestoreService {
   }) async {
     try {
       if (forceError) {
-        // await sleep(0.5); // Temporariamente comentado
+        //await sleep(0.5);
         throw FirestoreServiceError(
             FirestoreServiceErrorType.forcedError, 'forced error');
       }
@@ -143,7 +143,12 @@ class FirestoreService {
 
       return onSuccess(newDocument);
     } catch (error) {
-      // await _sendException(error: error, stack: stack, collection: collection, method: 'post', document: document); // Temporariamente comentado
+      /*    await _sendException(
+          error: error,
+          stack: stack,
+          collection: collection,
+          method: 'post',
+          document: document); */
       return onFailure(error);
     }
   }
@@ -182,6 +187,92 @@ class FirestoreService {
       // await _sendException(error: error, stack: stack, collection: collection, method: 'put', document: document); // Temporariamente comentado
       return onFailure(error);
     }
+  }
+
+  Future<T> patch<T>({
+    required String collection,
+    required String id,
+    required Map<String, dynamic> document,
+    required T Function(Map<String, dynamic> document) onSuccess,
+    required T Function(Object failure) onFailure,
+    bool forceError = false,
+  }) async {
+    try {
+      if (forceError) {
+        //   await sleep(0.5);
+        throw FirestoreServiceError(
+            FirestoreServiceErrorType.forcedError, 'forced error');
+      }
+
+      final documentRef = firestore.collection(collection).doc(id);
+      final changelogRef = firestore.collection('changelog').doc();
+
+      Map<String, dynamic> patchedDocument = Map.from(document);
+      patchedDocument['id'] = documentRef.id;
+
+      await firestore.runTransaction((transaction) async {
+        transaction.update(documentRef, document);
+        transaction.set(
+            changelogRef,
+            _log('patch', collection, patchedDocument),
+            SetOptions(merge: true));
+      }).timeout(timeoutEdit);
+
+      return onSuccess(patchedDocument);
+    } catch (error) {
+      /*  await _sendException(
+          error: error,
+          stack: stack,
+          collection: collection,
+          method: 'patch',
+          document: document); */
+      return onFailure(error);
+    }
+  }
+
+  Future<T> delete<T>({
+    required String collection,
+    required String id,
+    required Map<String, dynamic> document,
+    required T Function(Map<String, dynamic> document) onSuccess,
+    required T Function(Object failure) onFailure,
+    bool forceError = false,
+  }) async {
+    try {
+      if (forceError) {
+        // await sleep(0.5);
+        throw FirestoreServiceError(
+            FirestoreServiceErrorType.forcedError, 'forced error');
+      }
+      final documentRef = firestore.collection(collection).doc(id);
+      final changelogRef = firestore.collection('changelog').doc();
+
+      Map<String, dynamic> deletedDocument = Map.from(document);
+      deletedDocument['id'] = documentRef.id;
+
+      await firestore.runTransaction((transaction) async {
+        transaction.delete(documentRef);
+        transaction.set(
+            changelogRef,
+            _log('delete', collection, deletedDocument),
+            SetOptions(merge: true));
+      }).timeout(timeoutEdit);
+
+      return onSuccess(deletedDocument);
+    } catch (error) {
+      /*   await _sendException(
+          error: error,
+          stack: stack,
+          collection: collection,
+          method: 'delete',
+          document: {'id': id}); */
+      return onFailure(error);
+    }
+  }
+
+  DocumentReference<Map<String, dynamic>> docRef(
+      {required String collection, String? id}) {
+    return firestore.collection(collection).doc(id);
   }
 
   Map<String, dynamic> _log(
