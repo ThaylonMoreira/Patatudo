@@ -28,17 +28,23 @@ class HomeWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Gap(context.largeGap + 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Pets',
-                          style: Theme.of(context).textTheme.titleLarge,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        TextButton(
+                          onPressed: () => Modular.to.pushNamed(
+                            './pet-list',
+                            arguments: pets,
+                          ),
+                          child: const Text('Ver todos >'),
                         ),
                       ],
                     ),
-                    Gap(context.mediumGap),
+                    Gap(context.smallGap),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -105,7 +111,7 @@ class HomeWidget extends StatelessWidget {
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             TextButton(
               onPressed: () {},
@@ -113,7 +119,7 @@ class HomeWidget extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 8.0),
         Container(
           height: 100,
           width: double.infinity,
@@ -186,7 +192,7 @@ class HomeWidget extends StatelessWidget {
                   ),
                   child: const Center(
                     child: Text(
-                      '3',
+                      '?',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
