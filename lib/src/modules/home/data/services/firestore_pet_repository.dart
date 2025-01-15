@@ -19,6 +19,7 @@ class FirestorePetRepository implements PetRepository {
       onData: (docs) => PetListLoadSuccess(
         pets: docs.map((doc) => FirestoreAdapter.petFromMap(doc)).toList(),
       ),
+      queryParams: (query) => query.orderBy('name'),
       onFailure: (failure) {
         throw const PetListLoadFailure(
             message: 'Erro ao obter os dados dos pets cadastrados.');

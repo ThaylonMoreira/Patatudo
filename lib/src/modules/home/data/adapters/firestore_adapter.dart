@@ -10,7 +10,6 @@ import '../../domain/entities/walk_record.dart';
 class FirestoreAdapter {
   static Map<String, dynamic> appointmentToDocument(Appointment appointment) {
     return {
-      'id': appointment.id,
       'petId': appointment.petId,
       'dateTime': appointment.dateTime,
       'type': appointment.type,
@@ -33,7 +32,6 @@ class FirestoreAdapter {
   static Map<String, dynamic> feedingRecordToDocument(
       FeedingRecord feedingRecord) {
     return {
-      'id': feedingRecord.id,
       'petId': feedingRecord.petId,
       'date': feedingRecord.date,
       'foodType': feedingRecord.foodType,
@@ -56,7 +54,6 @@ class FirestoreAdapter {
   static Map<String, dynamic> healthRecordToDocument(
       HealthRecord healthRecord) {
     return {
-      'id': healthRecord.id,
       'petId': healthRecord.petId,
       'date': healthRecord.date,
       'recordType': healthRecord.recordType,
@@ -80,7 +77,6 @@ class FirestoreAdapter {
 
   static Map<String, dynamic> petToDocument(Pet pet) {
     return {
-      'id': pet.id,
       'name': pet.name,
       'photo': pet.photo,
       'type': pet.type.name,
@@ -110,7 +106,6 @@ class FirestoreAdapter {
 
   static Map<String, dynamic> reminderToDocument(Reminder reminder) {
     return {
-      'id': reminder.id,
       'petId': reminder.petId,
       'dateTime': reminder.dateTime.toIso8601String(),
       'type': reminder.type,
@@ -130,7 +125,6 @@ class FirestoreAdapter {
 
   static Map<String, dynamic> userToDocument(User user) {
     return {
-      'id': user.id,
       'name': user.name,
       'email': user.email,
       'password': user.password,
@@ -152,7 +146,6 @@ class FirestoreAdapter {
 
   static Map<String, dynamic> walkRecordToDocument(WalkRecord walkRecord) {
     return {
-      'id': walkRecord.id,
       'petId': walkRecord.petId,
       'date': walkRecord.date,
       'duration': walkRecord.duration,

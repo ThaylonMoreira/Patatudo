@@ -22,8 +22,14 @@ class PetListPage extends StatelessWidget {
           PetListLoadSuccess(:final pets) => Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  FilledButton.icon(
+                      onPressed: () => Go.to('./pet-edit'),
+                      icon: const Icon(Icons.pets),
+                      label: const Text(
+                        'Adicionar pet',
+                      )),
                   Expanded(
                     child: ListView.builder(
                       itemCount: state.pets.length,
@@ -46,10 +52,20 @@ class PetListPage extends StatelessWidget {
                             ),
                             title: Text(pet.name),
                             subtitle: Text('${pet.breed} - ${pet.age}'),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.remove_red_eye),
-                              onPressed: () =>
-                                  Go.to('./pet-detail', arguments: pet),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.edit),
+                                  onPressed: () =>
+                                      Go.to('./pet-edit', arguments: pet),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.remove_red_eye),
+                                  onPressed: () =>
+                                      Go.to('./pet-detail', arguments: pet),
+                                ),
+                              ],
                             ),
                           ),
                         );

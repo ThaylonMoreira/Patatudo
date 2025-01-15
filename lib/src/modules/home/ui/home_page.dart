@@ -41,10 +41,9 @@ class _HomePageState extends State<HomePage> {
         child: BlocBuilder<PetListBloc, PetListState>(
           builder: (context, state) {
             return Scaffold(
-              extendBodyBehindAppBar: true,
               appBar: AppBar(
                 centerTitle: true,
-                title: Text(_titles[_selectedIndex]), // Atualiza o título aqui
+                title: Text(_titles[_selectedIndex]),
                 backgroundColor: Colors.transparent,
                 actions: [
                   IconButton(

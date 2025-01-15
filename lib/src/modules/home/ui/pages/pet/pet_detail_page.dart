@@ -22,7 +22,7 @@ class PetDetailPage extends StatelessWidget {
             right: 0,
             child: Container(
               height: 300,
-              color: Colors.blueGrey, // Cor de fundo para melhor visualização
+              color: Colors.blueGrey,
               child: CachedNetworkImage(
                 imageUrl: pet.photo,
                 alignment: Alignment.center,
@@ -35,7 +35,7 @@ class PetDetailPage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 150, // Ajuste conforme necessário
+            top: 150,
             left: 0,
             right: 0,
             child: Container(
@@ -92,7 +92,7 @@ class PetDetailPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height - 400,
+                          height: MediaQuery.of(context).size.height - 500,
                           child: TabBarView(
                             children: [
                               _buildOverviewSection(),
@@ -110,11 +110,10 @@ class PetDetailPage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 100, // Ajuste a posição para ficar acima
-            left: MediaQuery.of(context).size.width / 2 -
-                60, // Centraliza horizontalmente
+            top: 100,
+            left: MediaQuery.of(context).size.width / 2 - 60,
             child: CircleAvatar(
-              radius: 60, // Ajuste o tamanho conforme necessário
+              radius: 60,
               backgroundImage: CachedNetworkImageProvider(pet.photo),
               backgroundColor: Colors.transparent,
             ),
@@ -126,9 +125,9 @@ class PetDetailPage extends StatelessWidget {
 
   Widget _buildOverviewSection() {
     return ListView(
+      padding: const EdgeInsets.all(8),
       children: [
         _buildAppointmentsSection(),
-        const SizedBox(height: 24),
         _buildPreventiveHealthCareSection(),
       ],
     );
