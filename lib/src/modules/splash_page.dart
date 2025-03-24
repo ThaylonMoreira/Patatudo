@@ -1,42 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
-import '../core/modular/go.dart';
+import 'auth/domain/states/auth_state.dart';
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
+class SplashPage extends StatelessWidget {
+  const SplashPage({super.key, required this.initialAuthState});
 
-  @override
-  State<SplashPage> createState() => _SplashPageState();
-}
-
-class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
-    // Atraso de 3 segundos antes de navegar para ./home
-    Future.delayed(const Duration(seconds: 3), () {
-      Go.toReplacement('./auth/'); // Navegação utilizando o Modular
-    });
-  }
-
+  final AuthState initialAuthState;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Patatudo!',
-              style: Theme.of(context)
-                  .textTheme
-                  .displayLarge!
-                  .copyWith(color: Colors.blue),
-              textAlign: TextAlign.center,
-            ),
-            const CircularProgressIndicator(),
-          ],
-        ),
+    Future.microtask(() {
+      if (initialAuthState.status == AuthStatus.successAuthenticating) {
+        Modular.to.navigate('/home/');
+      } else {
+        Modular.to.navigate('/auth/');
+      }
+    });
+
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
