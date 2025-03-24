@@ -41,3 +41,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Ignorar arquivos .cc
+*.cc
+
+# Ignorar arquivos .cmake
+*.cmake
+
+# Ignorar arquivos .swift
+*.swift
+

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+
+import '../core/modular/go.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -14,7 +15,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     // Atraso de 3 segundos antes de navegar para ./home
     Future.delayed(const Duration(seconds: 3), () {
-      Modular.to.navigate('./home/'); // Navegação utilizando o Modular
+      Go.toReplacement('./auth/'); // Navegação utilizando o Modular
     });
   }
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:patatudo/src/modules/home/ui/widgets/home_widget.dart';
-import 'package:patatudo/src/shared/extensions/extensions.dart';
 
 import '../../../core/modular/go.dart';
+import '../../../shared/extensions/extensions.dart';
 import '../domain/bloc/pet_list_bloc.dart';
 import '../domain/states/pet_list_state.dart';
+import 'widgets/home_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   // Lista de títulos para cada índice
   final List<String> _titles = [
     '',
-    'Compromissos',
+    'Calendário',
     'Pets',
     'Saúde',
     'Passeios',
@@ -67,13 +67,7 @@ class _HomePageState extends State<HomePage> {
                         const CircularProgressIndicator.adaptive(),
                       PetListLoadEmpty() => const HomeWidget(),
                       PetListLoadFailure(:final message) => Text(message),
-                      PetListLoadSuccess() => const Column(
-                          children: [
-                            Expanded(
-                              child: RouterOutlet(),
-                            ),
-                          ],
-                        ),
+                      PetListLoadSuccess() => const RouterOutlet(),
                     },
                   ),
                 ),
@@ -91,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.calendar_today),
-                    label: 'Compromissos',
+                    label: 'Calendário',
                   ),
                   BottomNavigationBarItem(
                     icon: Icon(Icons.pets),
@@ -117,16 +111,16 @@ class _HomePageState extends State<HomePage> {
                       Go.to('./home');
                       break;
                     case 1:
-                      Navigator.pushNamed(context, '/appointment');
+                      Go.to('/appointment');
                       break;
                     case 2:
                       Go.to('./pet-list');
                       break;
                     case 3:
-                      Navigator.pushNamed(context, '/health_record');
+                      Go.to('/health_record');
                       break;
                     case 4:
-                      Navigator.pushNamed(context, '/walk_record');
+                      Go.to('/walk_record');
                       break;
                   }
                 },

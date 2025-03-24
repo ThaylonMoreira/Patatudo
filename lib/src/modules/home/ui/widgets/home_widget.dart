@@ -3,8 +3,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:gap/gap.dart';
-import 'package:patatudo/src/shared/extensions/extensions.dart';
 
+import '../../../../core/modular/go.dart';
+import '../../../../shared/extensions/extensions.dart';
 import '../../domain/bloc/pet_list_bloc.dart';
 import '../../domain/entities/pet.dart';
 import '../../domain/states/pet_list_state.dart';
@@ -36,7 +37,7 @@ class HomeWidget extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         TextButton(
-                          onPressed: () => Modular.to.pushNamed(
+                          onPressed: () => Go.to(
                             './pet-list',
                             arguments: pets,
                           ),

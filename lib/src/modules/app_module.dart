@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../core/services/firestore_service.dart';
+import 'auth/auth_module.dart';
 import 'home/home_module.dart';
 import 'splash_page.dart';
 
@@ -17,6 +18,7 @@ class AppModule extends Module {
   @override
   void routes(RouteManager r) {
     r.child('/', child: (context) => const SplashPage());
+    r.module('/auth', module: AuthModule());
     r.module('/home', module: HomeModule());
     super.routes(r);
   }
